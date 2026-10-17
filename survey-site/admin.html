@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Survey Dashboard</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+.tabs{display:flex;gap:6px;margin:0 0 14px;border-bottom:2px solid var(--line);flex-wrap:wrap}
+.tab{appearance:none;border:0;background:none;font:600 15px inherit;color:var(--muted);padding:10px 16px;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px}
+.tab.on{color:var(--navy);border-bottom-color:var(--gold)}
+.rtable tbody tr{cursor:pointer}
+.rtable tbody tr:hover td{background:#eef3f9}
+.badge{display:inline-block;padding:2px 9px;border-radius:12px;font-size:12px;font-weight:600}
+.b-ok{background:#e2f2ee;color:#1d5f50}.b-mid{background:#fbf1d6;color:#7a5b00}.b-bad{background:#f6dede;color:#8a2a2a}.b-gray{background:#eceff3;color:#555}
+.detail .row{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:7px 0;border-bottom:1px solid var(--line);font-size:14px}
+.detail .row b{color:var(--navy)}
+.detail h3{margin-top:18px}
+.back{margin-bottom:10px}
+@media(max-width:600px){.detail .row{grid-template-columns:1fr}}
+@media print{.tabs{display:none!important}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="in">
+  <div id="topLogo" style="display:contents"></div>
+  <div><div class="t1">Survey Dashboard</div><div class="t2" id="topSub"></div></div>
+</div></header>
+
+<main class="wrap">
+  <div class="card noprint">
+    <div class="adminbar">
+      <input type="password" id="token" placeholder="Admin token (from Code.gs)">
+      <button class="btn" id="loadBtn">Load responses</button>
+      <label class="btn sec" style="margin:0">Upload CSV / Excel / JSON<input type="file" id="file" accept=".csv,.xlsx,.xls,.json" class="hide"></label>
+      <button class="btn sec" id="demoBtn">Load demo data</button>
+    </div>
+    <div class="adminbar">
+      <button class="btn" id="xlsBtn" disabled>Download analysis sheet (Excel)</button>
+      <button class="btn" id="pdfBtn" disabled>Print / Save report as PDF</button>
+      <label style="font-size:14px;color:#5f6b7a"><input type="checkbox" id="auto"> Auto-refresh (60 s)</label>
+      <span id="status" style="color:#5f6b7a;font-size:14px"></span>
+    </div>
+  </div>
+
+  <div class="tabs noprint">
+    <button class="tab on" data-tab="responses">Responses</button>
+    <button class="tab" data-tab="analysis">Analysis report</button>
+  </div>
+
+  <div id="responses"></div>
+  <div id="report" class="report hide"></div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="config.js"></script>
+<script src="questions.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
